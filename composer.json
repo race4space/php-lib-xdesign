@@ -1,0 +1,23 @@
+{
+    "name": "race4space/php-lib-xdesign",
+    "description": "A Web Desigining Tool",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "race4space",
+            "email": "race4space@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "phpxpublish\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "race4space/php-lib-library": "^2.9"
+    }
+}
