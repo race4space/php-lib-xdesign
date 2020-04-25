@@ -18,6 +18,6 @@
         "sort-packages": true
     },
     "require": {
-        "race4space/php-lib-library": "^2.9"
+        "race4space/php-lib-library": "^2.3"
     }
 }
