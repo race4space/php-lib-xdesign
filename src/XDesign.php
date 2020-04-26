@@ -5,7 +5,7 @@ $obj_request;$obj_xpublish_const;
 $obj_site;$obj_page;$obj_publish;$obj_bootstrap;
 
 class XDesign{
-  function __construct($mycon_user, $mycon_pass, $mycon_host="localhost", $mycon_schema="my-vm") {
+  function __construct($mycon_user, $mycon_pass, $mycon_host="localhost", $mycon_schema="xdesign") {
     global $con_user;
     global $con_pass;
     global $con_host;
@@ -29,11 +29,12 @@ class XDesign{
     global $obj_publish;
 
     $obj_request=new \phplibrary\ServerVariables();
-    //$obj_xpublish_const=new XPublishConstant();  
+    //$obj_xpublish_const=new XPublishConstant();
 
     //fn_write_post();
 
     //echo "SUCCESSABC";
+
 
 //*
 $str_json= file_get_contents("php://input");
@@ -64,18 +65,18 @@ echo(PHP_EOL);
       break;
       case "loadDesignerFromServer":
         $this->fn_loadDesignerFromServer();
-      break;      
+      break;
       default:
         echo "XDesign ACTION Not Handled: [".$str_action."]";
     }
   }
-  function fn_loadDesignerFromServer(){    
+  function fn_loadDesignerFromServer(){
 
-    $str_sql="SELECT * FROM `designer` LIMIT 1;";//siteItem    
+    $str_sql="SELECT * FROM `xdesign`.`container` LIMIT 1;";//siteItem
     $stmt = $this->obj_pdo->pdo->query($str_sql);
     $row=$stmt->fetch();
     if($row){
-      //var_dump($row);    
+      //var_dump($row);
       $str_data=$row["Serialize"];
       echo($str_data);
     }
@@ -85,11 +86,11 @@ echo(PHP_EOL);
     $str_data=$this->str_data;
     $str_data=$this->obj_pdo->pdo->quote($str_data);
 
-    $str_sql="DELETE FROM `designer` LIMIT 1;";//siteItem    
+    $str_sql="DELETE FROM `xdesign`.`container` LIMIT 1;";//siteItem
     $stmt = $this->obj_pdo->pdo->query($str_sql);
-    
-    $str_sql="INSERT INTO `designer` (`serialize`) VALUES ($str_data);";
-    $stmt = $this->obj_pdo->pdo->query($str_sql);    
+
+    $str_sql="INSERT INTO `xdesign`.`container` (`serialize`) VALUES ($str_data);";
+    $stmt = $this->obj_pdo->pdo->query($str_sql);
 
     if($this->bln_debug){
       echo("fn_saveDesignerToServer: SUCCESS");
