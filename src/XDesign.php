@@ -34,6 +34,7 @@ class XDesign{
     //fn_write_post();
 
     //echo "SUCCESSABC";
+    
 
 
 //*
@@ -72,8 +73,12 @@ echo(PHP_EOL);
   }
   function fn_loadDesignerFromServer(){
 
-    $str_sql="SELECT * FROM `xdesign`.`container` LIMIT 1;";//siteItem
-    $stmt = $this->obj_pdo->pdo->query($str_sql);
+    $obj_pdo=$this->obj_pdo;
+    $str_projectName="DesignConsole";
+    $str_projectName=$obj_pdo->quote($str_projectName);
+
+    $str_sql="SELECT * FROM `xdesign`.`container` WHERE `ProjectName`=$str_projectName LIMIT 1;";
+    $stmt = $obj_pdo->query($str_sql);
     $row=$stmt->fetch();
     if($row){
       //var_dump($row);
@@ -83,14 +88,18 @@ echo(PHP_EOL);
   }
   function fn_saveDesignerToServer(){
 
+    $obj_pdo=$this->obj_pdo;
     $str_data=$this->str_data;
-    $str_data=$this->obj_pdo->pdo->quote($str_data);
+    $str_data=$obj_pdo->quote($str_data);
 
-    $str_sql="DELETE FROM `xdesign`.`container` LIMIT 1;";//siteItem
-    $stmt = $this->obj_pdo->pdo->query($str_sql);
+    $str_projectName="DesignConsole";
+    $str_projectName=$obj_pdo->quote($str_projectName);
 
-    $str_sql="INSERT INTO `xdesign`.`container` (`serialize`) VALUES ($str_data);";
-    $stmt = $this->obj_pdo->pdo->query($str_sql);
+    $str_sql="DELETE FROM `xdesign`.`container` WHERE `ProjectName`='$str_projectName'LIMIT 1;";
+    $stmt = $obj_pdo->query($str_sql);
+
+    $str_sql="INSERT INTO `xdesign`.`container` (`ProjectName`,`Serialize`) VALUES ($str_projectName,$str_data);";
+    $stmt = $obj_pdo->query($str_sql);
 
     if($this->bln_debug){
       echo("fn_saveDesignerToServer: SUCCESS");
