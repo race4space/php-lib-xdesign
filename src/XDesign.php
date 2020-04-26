@@ -34,7 +34,7 @@ class XDesign{
     //fn_write_post();
 
     //echo "SUCCESSABC";
-    
+
 
 
 //*
@@ -61,17 +61,17 @@ echo(PHP_EOL);
 //*/
 
     switch($str_action){
-      case "saveDesignerToServer":
-        $this->fn_saveDesignerToServer();
+      case "saveDesigner":
+        $this->fn_saveDesigner();
       break;
-      case "loadDesignerFromServer":
-        $this->fn_loadDesignerFromServer();
+      case "loadDesigner":
+        $this->fn_loadDesigner();
       break;
       default:
         echo "XDesign ACTION Not Handled: [".$str_action."]";
     }
   }
-  function fn_loadDesignerFromServer(){
+  function fn_loadDesigner(){
 
     $obj_pdo=$this->obj_pdo;
     $str_projectName="DesignConsole";
@@ -86,7 +86,7 @@ echo(PHP_EOL);
       echo($str_data);
     }
   }
-  function fn_saveDesignerToServer(){
+  function fn_saveDesigner(){
 
     $obj_pdo=$this->obj_pdo;
     $str_data=$this->str_data;
@@ -95,7 +95,7 @@ echo(PHP_EOL);
     $str_projectName="DesignConsole";
     $str_projectName=$obj_pdo->quote($str_projectName);
 
-    $str_sql="DELETE FROM `xdesign`.`container` WHERE `ProjectName`='$str_projectName'LIMIT 1;";
+    $str_sql="DELETE FROM `xdesign`.`container` WHERE `ProjectName`=$str_projectName LIMIT 1;";
     $stmt = $obj_pdo->query($str_sql);
 
     $str_sql="INSERT INTO `xdesign`.`container` (`ProjectName`,`Serialize`) VALUES ($str_projectName,$str_data);";
