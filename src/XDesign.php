@@ -227,7 +227,7 @@ heredoc;
 
       $str_document=$str_header.$str_html.$str_footer;			
       
-      file_put_contents("viewinbrowser.html", $str_document);
+      file_put_contents("viewInBrowser.html", $str_document);
 
       
     }
